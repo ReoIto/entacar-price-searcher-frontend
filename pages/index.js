@@ -4,9 +4,9 @@ export default function Home({ props }) {
   const { search_results, average_price, cheapest_price, highest_price } =
     props.search_results;
 
-  const renderSearchResults = search_results.map((res) => {
+  const renderSearchResults = search_results.map((res, i) => {
     return (
-      <div>
+      <div key={i}>
         <p>{res.shop_name}</p>
         <p>{res.car_name}</p>
         <p>{res.limit_of_passengers}</p>
@@ -41,7 +41,14 @@ export default function Home({ props }) {
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/search");
+  let baseApiUrl;
+  if (process.env.NODE_ENV === "production") {
+    baseApiUrl = process.env.PRODUCTION_API_URL;
+  } else {
+    baseApiUrl = process.env.DEVELOPMENT_API_URL;
+  }
+
+  const res = await fetch(`${baseApiUrl}/search`);
   const props = await res.json();
 
   return { props: { props } };
