@@ -29,13 +29,13 @@ export default function Home({ props }) {
       </Head>
 
       <div className="text-2xl font-bold">
-        <h2 font-bold>{`平均値 : ${average_price}`}</h2>
+        <h2>{`平均値 : ${average_price}`}</h2>
         <h2>{`最高値 : ${highest_price}`}</h2>
         <h2>{`最安値 : ${cheapest_price}`}</h2>
         <span>-------------------------------</span>
       </div>
       <div className="text-3xl font-bold pb-5">検索結果</div>
-      <div>{renderSearchResults}</div>
+      {renderSearchResults}
     </div>
   );
 }
