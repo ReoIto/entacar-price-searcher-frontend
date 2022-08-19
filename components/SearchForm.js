@@ -3,7 +3,7 @@ import DateTimeInput from "./DateTimeInput";
 export default function SearchForm({ handleChange, handleSubmit }) {
   return (
     <>
-      <div className="w-10/12 mx-auto md:max-w-md pt-10">
+      <div className="md:max-w-md pt-10 pb-10">
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="mb-8">
             <DateTimeInput
