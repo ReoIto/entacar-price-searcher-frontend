@@ -10,16 +10,15 @@ export default function SearchForm({ handleChange, handleSubmit }) {
               label="予約開始年月日"
               name="startDate"
               type="date"
-              placeHolder=""
               handleChange={handleChange}
             />
           </div>
           <div className="mb-8">
             <DateTimeInput
-              label="予約開始時間"
+              label="予約開始時刻"
               name="startTime"
-              type="text"
-              placeHolder="13:15の場合、1315"
+              type="time"
+              datalistName="onlyHours"
               handleChange={handleChange}
             />
           </div>
@@ -28,16 +27,15 @@ export default function SearchForm({ handleChange, handleSubmit }) {
               label="返却年月日"
               name="returnDate"
               type="date"
-              placeHolder=""
               handleChange={handleChange}
             />
           </div>
           <div className="mb-8">
             <DateTimeInput
-              label="返却時間"
+              label="返却時刻"
               name="returnTime"
-              type="text"
-              placeHolder="17:00の場合、1700"
+              type="time"
+              datalistName="onlyHours"
               handleChange={handleChange}
             />
           </div>
