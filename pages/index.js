@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
+import CalculatedPrices from "../components/CalculatedPrices";
 import SearchForm from "../components/SearchForm";
 import SearchResultTable from "../components/SearchResultTable";
 
@@ -72,10 +73,17 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SearchForm
-        handleChange={handleChangeValue}
-        handleSubmit={handleSubmit}
-      />
+      <div className="flex flex-row w-full items-center my-5">
+        <SearchForm
+          handleChange={handleChangeValue}
+          handleSubmit={handleSubmit}
+        />
+        <CalculatedPrices
+          averagePrice={searchResult.averagePrice}
+          highestPrice={searchResult.highestPrice}
+          cheapestPrice={searchResult.cheapestPrice}
+        />
+      </div>
       <SearchResultTable carList={searchResult.carList} />
     </div>
   );

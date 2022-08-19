@@ -3,7 +3,7 @@ import TableRows from "./TableRows";
 
 export default function SearchResultTable({ carList }) {
   return (
-    <div className="flex flex-col pb-10">
+    <div className="flex flex-col pb-10 rounded-lg border shadow-md">
       <div className="overflow-x-auto">
         <div className="p-1.5 w-full inline-block align-middle">
           <div className="overflow-hidden border rounded-lg">
