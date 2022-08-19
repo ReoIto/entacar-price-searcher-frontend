@@ -1,7 +1,10 @@
+import ProgressTableSkeleton from "./ProgressTableSkeleton";
+
 export default function CalculatedPrices({
   averagePrice,
   highestPrice,
   cheapestPrice,
+  isLoading,
 }) {
   const allPriceObj = [
     {
@@ -26,24 +29,28 @@ export default function CalculatedPrices({
         </p>
       </div>
       <div className="flow-root">
-        <ul role="list" className="divide-y divide-gray-200">
-          {allPriceObj.map((item) => {
-            return (
-              <li className="py-3 sm:py-4" key={item.priceKindName}>
-                <div className="flex items-center space-x-4">
-                  <div className="flex-1 min-w-0">
-                    <p className="text-blue-600 text-xl font-bold truncate">
-                      {item.priceKindName}
-                    </p>
+        {isLoading ? (
+          <ProgressTableSkeleton />
+        ) : (
+          <ul role="list" className="divide-y divide-gray-200">
+            {allPriceObj.map((item) => {
+              return (
+                <li className="py-3 sm:py-4" key={item.priceKindName}>
+                  <div className="flex items-center space-x-4">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-blue-600 text-xl font-bold truncate">
+                        {item.priceKindName}
+                      </p>
+                    </div>
+                    <div className="inline-flex items-center text-base text-2xl font-bold text-gray-900">
+                      {`¥${item.amount}`}
+                    </div>
                   </div>
-                  <div className="inline-flex items-center text-base text-2xl font-bold text-gray-900">
-                    {`¥${item.amount}`}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
     </div>
   );

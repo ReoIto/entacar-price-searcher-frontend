@@ -1,6 +1,6 @@
 import DateTimeInput from "./DateTimeInput";
 
-export default function SearchForm({ handleChange, handleSubmit }) {
+export default function SearchForm({ handleChange, handleSubmit, isLoading }) {
   return (
     <>
       <div className="w-full md:max-w-md pt-10 pb-10 mr-4 p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8">
@@ -43,6 +43,7 @@ export default function SearchForm({ handleChange, handleSubmit }) {
           <button
             type="submit"
             className="bg-blue-500 text-white font-semibold py-2 px-8 rounded-md focus:outline-none"
+            disabled={isLoading}
           >
             検索する
           </button>

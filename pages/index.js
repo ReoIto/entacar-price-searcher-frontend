@@ -19,6 +19,8 @@ export default function Home() {
     carList: [],
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleChangeValue(e) {
     if (e === undefined) {
       return;
@@ -34,6 +36,8 @@ export default function Home() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
+
     const params = {
       startDate: values.startDate,
       startTime: values.startTime,
@@ -51,6 +55,7 @@ export default function Home() {
     const res = await fetch(`${baseApiUrl}/search?${query}`);
     const json = await res.json();
     handleSearchResultData(json);
+    setIsLoading(false);
   }
 
   function handleSearchResultData(json) {
@@ -77,14 +82,16 @@ export default function Home() {
         <SearchForm
           handleChange={handleChangeValue}
           handleSubmit={handleSubmit}
+          isLoading={isLoading}
         />
         <CalculatedPrices
           averagePrice={searchResult.averagePrice}
           highestPrice={searchResult.highestPrice}
           cheapestPrice={searchResult.cheapestPrice}
+          isLoading={isLoading}
         />
       </div>
-      <SearchResultTable carList={searchResult.carList} />
+      <SearchResultTable carList={searchResult.carList} isLoading={isLoading} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ export default function TableRows({ carList }) {
       {carList.map((item, index) => {
         let i = index + 1;
         return (
-          <tr>
+          <tr key={i}>
             <td className="px-6 py-4 text-xs font-medium text-gray-800 whitespace-nowrap">
               {i}
             </td>
