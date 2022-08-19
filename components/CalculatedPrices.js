@@ -22,7 +22,7 @@ export default function CalculatedPrices({
   ];
 
   return (
-    <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8">
+    <div className="p-4 w-full max-w-md bg-white rounded-lg border shadow-md sm:p-8 mx-auto">
       <div className="items-center mb-10">
         <p className="text-2xl font-bold leading-none text-gray-900 ">
           検索結果のレーティング
