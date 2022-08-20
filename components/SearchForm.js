@@ -1,43 +1,104 @@
 import DateTimeInput from "./DateTimeInput";
+import { useForm } from "react-hook-form";
 
-export default function SearchForm({ handleChange, handleSubmit, isLoading }) {
+export default function SearchForm({
+  isLoading,
+  setIsLoading,
+  handleSearchResultData,
+}) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  async function onSubmit(data) {
+    setIsLoading(true);
+    const res = await fetch(`${baseApiUrl()}/search?${setQuery(data)}`);
+    const json = await res.json();
+    handleSearchResultData(json);
+    setIsLoading(false);
+  }
+
+  function baseApiUrl() {
+    if (process.env.NODE_ENV === "production") {
+      return process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
+    }
+
+    return process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
+  }
+
+  function setQuery(data) {
+    const params = {
+      startDate: data.startDate,
+      startTime: data.startTime,
+      returnDate: data.returnDate,
+      returnTime: data.returnTime,
+    };
+    return new URLSearchParams(params);
+  }
+
   return (
     <>
       <div className="w-full md:max-w-md pt-10 pb-10 mr-4 p-4 max-w-md bg-white rounded-lg border shadow-xl sm:p-8">
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-8">
             <DateTimeInput
               label="予約開始年月日"
               name="startDate"
               type="date"
-              handleChange={handleChange}
+              register={register}
             />
+            {errors.startDate && (
+              <span className="mb-8 text-red-500">
+                予約開始日時が入力されていません
+              </span>
+            )}
           </div>
+
           <div className="mb-8">
             <DateTimeInput
               label="予約開始時刻"
               name="startTime"
               type="time"
+              register={register}
               datalistName="onlyHours"
-              handleChange={handleChange}
             />
+            {errors.startTime && (
+              <span className="mb-8 text-red-500">
+                予約開始時刻が入力されていません
+              </span>
+            )}
           </div>
+
           <div className="mb-8">
             <DateTimeInput
               label="返却年月日"
               name="returnDate"
               type="date"
-              handleChange={handleChange}
+              register={register}
             />
+            {errors.returnDate && (
+              <span className="mb-8 text-red-500">
+                返却日時が入力されていません
+              </span>
+            )}
           </div>
+
           <div className="mb-8">
             <DateTimeInput
               label="返却時刻"
               name="returnTime"
               type="time"
+              register={register}
               datalistName="onlyHours"
-              handleChange={handleChange}
             />
+            {errors.returnTime && (
+              <span className="mb-8 text-red-500">
+                返却時刻が入力されていません
+              </span>
+            )}
           </div>
 
           <button

@@ -1,10 +1,10 @@
 export default function DateTimeInput({
+  register,
   label,
   name,
   type,
   placeHolder,
   datalistName,
-  handleChange,
 }) {
   function datalistOptionsForHours() {
     if (datalistName !== "onlyHours") {
@@ -51,13 +51,13 @@ export default function DateTimeInput({
         {label}
       </label>
       <input
+        {...register(name, { required: true })}
         name={name}
         id={name}
         type={type}
         className="border-b w-full py-2 focus:outline-none focus:border-b-2 focus:border-blue-500"
         placeholder={placeHolder}
         list={datalistName}
-        onChange={(e) => handleChange(e)}
       />
 
       {datalistTag()}
