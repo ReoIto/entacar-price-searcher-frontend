@@ -45,7 +45,7 @@ export default function SearchForm({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-8">
             <DateTimeInput
-              label="予約開始年月日"
+              label="予約開始日時"
               name="startDate"
               type="date"
               register={register}
@@ -74,7 +74,7 @@ export default function SearchForm({
 
           <div className="mb-8">
             <DateTimeInput
-              label="返却年月日"
+              label="返却日時"
               name="returnDate"
               type="date"
               register={register}
