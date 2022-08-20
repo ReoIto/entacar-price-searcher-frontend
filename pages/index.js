@@ -5,13 +5,6 @@ import SearchForm from "../components/SearchForm";
 import SearchResultTable from "../components/SearchResultTable";
 
 export default function Home() {
-  const [values, setValues] = useState({
-    startDate: "",
-    startTime: "",
-    returnDate: "",
-    returnTime: "",
-  });
-
   const [searchResult, setSearchResult] = useState({
     averagePrice: "",
     highestPrice: "",
@@ -20,46 +13,6 @@ export default function Home() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
-  function handleChangeValue(e) {
-    if (e === undefined) {
-      return;
-    }
-
-    const key = e.target.name;
-    const value = e.target.value;
-    setValues((values) => ({
-      ...values,
-      [key]: value,
-    }));
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    const res = await fetch(`${baseApiUrl()}/search?${setQuery()}`);
-    const json = await res.json();
-    handleSearchResultData(json);
-    setIsLoading(false);
-  }
-
-  function baseApiUrl() {
-    if (process.env.NODE_ENV === "production") {
-      return process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
-    }
-
-    return process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
-  }
-
-  function setQuery() {
-    const params = {
-      startDate: values.startDate,
-      startTime: values.startTime,
-      returnDate: values.returnDate,
-      returnTime: values.returnTime,
-    };
-    return new URLSearchParams(params);
-  }
 
   function handleSearchResultData(json) {
     setSearchResult((res) => ({
@@ -83,9 +36,9 @@ export default function Home() {
       </Head>
       <div className="flex flex-row w-full items-center my-5">
         <SearchForm
-          handleChange={handleChangeValue}
-          handleSubmit={handleSubmit}
           isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          handleSearchResultData={handleSearchResultData}
         />
         <CalculatedPrices
           averagePrice={searchResult.averagePrice}
