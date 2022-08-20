@@ -42,10 +42,12 @@ export default function SearchForm({ handleChange, handleSubmit, isLoading }) {
 
           <button
             type="submit"
-            className="bg-blue-500 text-white font-semibold py-2 px-8 rounded-md focus:outline-none"
+            className={`bg-blue-500 text-white font-semibold py-2 px-8 rounded-md focus:outline-none ${
+              !isLoading && "hover:bg-blue-600 hover:shadow-lg"
+            } ${isLoading && "bg-blue-200"}`}
             disabled={isLoading}
           >
-            検索する
+            {isLoading ? "検索中" : "検索する"}
           </button>
         </form>
       </div>
