@@ -37,25 +37,28 @@ export default function Home() {
   async function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
+    const res = await fetch(`${baseApiUrl()}/search?${setQuery()}`);
+    const json = await res.json();
+    handleSearchResultData(json);
+    setIsLoading(false);
+  }
 
+  function baseApiUrl() {
+    if (process.env.NODE_ENV === "production") {
+      return process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
+    }
+
+    return process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
+  }
+
+  function setQuery() {
     const params = {
       startDate: values.startDate,
       startTime: values.startTime,
       returnDate: values.returnDate,
       returnTime: values.returnTime,
     };
-    const query = new URLSearchParams(params);
-
-    let baseApiUrl;
-    if (process.env.NODE_ENV === "production") {
-      baseApiUrl = process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
-    } else {
-      baseApiUrl = process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
-    }
-    const res = await fetch(`${baseApiUrl}/search?${query}`);
-    const json = await res.json();
-    handleSearchResultData(json);
-    setIsLoading(false);
+    return new URLSearchParams(params);
   }
 
   function handleSearchResultData(json) {
