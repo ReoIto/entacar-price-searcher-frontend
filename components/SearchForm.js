@@ -1,5 +1,6 @@
-import DateTimeInput from "./DateTimeInput";
 import { useForm } from "react-hook-form";
+import DateTimeInput from "./DateTimeInput";
+import ErrorMessage from "./ErrorMessage";
 
 export default function SearchForm({
   isLoading,
@@ -51,9 +52,7 @@ export default function SearchForm({
               register={register}
             />
             {errors.startDate && (
-              <span className="mb-8 text-red-500">
-                予約開始日時が入力されていません
-              </span>
+              <ErrorMessage message={"予約開始日時が入力されていません"} />
             )}
           </div>
 
@@ -66,9 +65,7 @@ export default function SearchForm({
               datalistName="onlyHours"
             />
             {errors.startTime && (
-              <span className="mb-8 text-red-500">
-                予約開始時刻が入力されていません
-              </span>
+              <ErrorMessage message={"予約開始時刻が入力されていません"} />
             )}
           </div>
 
@@ -80,9 +77,7 @@ export default function SearchForm({
               register={register}
             />
             {errors.returnDate && (
-              <span className="mb-8 text-red-500">
-                返却日時が入力されていません
-              </span>
+              <ErrorMessage message={"返却日時が入力されていません"} />
             )}
           </div>
 
@@ -95,9 +90,7 @@ export default function SearchForm({
               datalistName="onlyHours"
             />
             {errors.returnTime && (
-              <span className="mb-8 text-red-500">
-                返却時刻が入力されていません
-              </span>
+              <ErrorMessage message={"返却時刻が入力されていません"} />
             )}
           </div>
 
