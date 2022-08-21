@@ -11,18 +11,7 @@ export default function Home() {
     cheapestPrice: "",
     carList: [],
   });
-
   const [isLoading, setIsLoading] = useState(false);
-
-  function handleSearchResultData(json) {
-    setSearchResult((res) => ({
-      ...res,
-      averagePrice: json.search_result.average_price,
-      highestPrice: json.search_result.highest_price,
-      cheapestPrice: json.search_result.cheapest_price,
-      carList: json.search_result.car_list,
-    }));
-  }
 
   return (
     <div className="container mx-auto">
@@ -38,7 +27,7 @@ export default function Home() {
         <SearchForm
           isLoading={isLoading}
           setIsLoading={setIsLoading}
-          handleSearchResultData={handleSearchResultData}
+          setSearchResult={setSearchResult}
         />
         <CalculatedPrices
           averagePrice={searchResult.averagePrice}

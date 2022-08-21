@@ -5,7 +5,7 @@ import ErrorMessage from "./ErrorMessage";
 export default function SearchForm({
   isLoading,
   setIsLoading,
-  handleSearchResultData,
+  setSearchResult,
 }) {
   const {
     register,
@@ -38,6 +38,16 @@ export default function SearchForm({
       returnTime: data.returnTime,
     };
     return new URLSearchParams(params);
+  }
+
+  function handleSearchResultData(json) {
+    setSearchResult((res) => ({
+      ...res,
+      averagePrice: json.search_result.average_price,
+      highestPrice: json.search_result.highest_price,
+      cheapestPrice: json.search_result.cheapest_price,
+      carList: json.search_result.car_list,
+    }));
   }
 
   return (

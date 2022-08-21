@@ -3,7 +3,6 @@ export default function DateTimeInput({
   label,
   name,
   type,
-  placeHolder,
   datalistName,
 }) {
   function datalistOptionsForHours() {
@@ -56,7 +55,6 @@ export default function DateTimeInput({
         id={name}
         type={type}
         className="border-b w-full py-2 focus:outline-none focus:border-b-2 focus:border-blue-500"
-        placeholder={placeHolder}
         list={datalistName}
       />
 
