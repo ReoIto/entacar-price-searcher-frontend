@@ -46,7 +46,7 @@ export default function DateTimeInput({
 
   return (
     <>
-      <label htmlFor={name} className="text-sm block">
+      <label htmlFor={name} className="text-sm block text-blue-600">
         {label}
       </label>
       <input

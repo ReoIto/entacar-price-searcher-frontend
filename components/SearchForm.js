@@ -10,11 +10,15 @@ export default function SearchForm({
   const {
     register,
     handleSubmit,
-    watch,
+    setError,
     formState: { errors },
   } = useForm();
 
   async function onSubmit(data) {
+    if (!isValidDateInput(data.startDate, data.returnDate)) {
+      return;
+    }
+
     setIsLoading(true);
     const res = await fetch(`${baseApiUrl()}/search?${setQuery(data)}`);
     const json = await res.json();
@@ -28,6 +32,21 @@ export default function SearchForm({
     }
 
     return process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
+  }
+
+  function isValidDateInput(startDate, returnDate) {
+    startDate = new Date(startDate);
+    returnDate = new Date(returnDate);
+
+    if (startDate < returnDate) {
+      return true;
+    }
+
+    setError("returnDate", {
+      type: "returnDateMustFutureError",
+      message: "「返却日時」は「予約開始日時」よりも未来に設定してください",
+    });
+    return false;
   }
 
   function setQuery(data) {
@@ -86,8 +105,11 @@ export default function SearchForm({
               type="date"
               register={register}
             />
-            {errors.returnDate && (
+            {errors.returnDate?.type === "required" && (
               <ErrorMessage message={"返却日時が入力されていません"} />
+            )}
+            {errors.returnDate?.type === "returnDateMustFutureError" && (
+              <ErrorMessage message={errors.returnDate.message} />
             )}
           </div>
 
