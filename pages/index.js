@@ -9,6 +9,7 @@ export default function Home() {
     averagePrice: "",
     highestPrice: "",
     cheapestPrice: "",
+    averagePriceBetweenAverageAndCheapest: "",
     carList: [],
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -33,6 +34,9 @@ export default function Home() {
           averagePrice={searchResult.averagePrice}
           highestPrice={searchResult.highestPrice}
           cheapestPrice={searchResult.cheapestPrice}
+          averagePriceBetweenAverageAndCheapest={
+            searchResult.averagePriceBetweenAverageAndCheapest
+          }
           isLoading={isLoading}
         />
       </div>
