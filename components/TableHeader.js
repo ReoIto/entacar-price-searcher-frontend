@@ -6,14 +6,14 @@ export default function TableHeader() {
     "販売元",
     "車種",
     "乗車人数",
-    "予約日数",
+    "価格内容",
     "価格",
   ];
 
   return (
     <thead className=" bg-gray-200">
       <tr>
-        {headerColumns.map((col) => {
+        {headerColumns?.map((col) => {
           return (
             <th
               key={col}

@@ -31,7 +31,7 @@ export default function DateTimeInput({
       23,
     ];
 
-    return hours.map((hour) => {
+    return hours?.map((hour) => {
       return <option value={`${hour}:00`} key={`option-${hour}`} />;
     });
   }

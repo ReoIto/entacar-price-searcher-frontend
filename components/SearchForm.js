@@ -65,6 +65,8 @@ export default function SearchForm({
       averagePrice: json.search_result.average_price,
       highestPrice: json.search_result.highest_price,
       cheapestPrice: json.search_result.cheapest_price,
+      averagePriceBetweenAverageAndCheapest:
+        json.search_result.average_price_between_average_and_cheapest,
       carList: json.search_result.car_list,
     }));
   }
