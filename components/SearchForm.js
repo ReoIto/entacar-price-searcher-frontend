@@ -20,8 +20,8 @@ export default function SearchForm({
       return;
     }
 
-    handleIsNoResult(false);
     setIsLoading(true);
+    handleIsNoResult(false);
     const res = await fetch(`${baseApiUrl()}/search?${setQuery(data)}`);
     const json = await res.json();
 
@@ -82,6 +82,7 @@ export default function SearchForm({
       averagePriceBetweenAverageAndCheapest:
         json.search_result.average_price_between_average_and_cheapest,
       carList: json.search_result.car_list,
+      isServerError: json.search_result.is_error,
     }));
   }
 
