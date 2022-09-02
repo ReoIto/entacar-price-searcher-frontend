@@ -6,6 +6,7 @@ export default function SearchForm({
   isLoading,
   setIsLoading,
   setSearchResult,
+  setIsNoResult,
 }) {
   const {
     register,
@@ -19,9 +20,18 @@ export default function SearchForm({
       return;
     }
 
+    handleIsNoResult(false);
     setIsLoading(true);
     const res = await fetch(`${baseApiUrl()}/search?${setQuery(data)}`);
     const json = await res.json();
+
+    if (json.search_result.is_no_result === true) {
+      handleIsNoResult(true);
+      resetSearchResultStates();
+      setIsLoading(false);
+      return;
+    }
+
     handleSearchResultData(json);
     setIsLoading(false);
   }
@@ -49,6 +59,10 @@ export default function SearchForm({
     return false;
   }
 
+  function handleIsNoResult(bool) {
+    setIsNoResult(bool);
+  }
+
   function setQuery(data) {
     const params = {
       startDate: data.startDate,
@@ -68,6 +82,17 @@ export default function SearchForm({
       averagePriceBetweenAverageAndCheapest:
         json.search_result.average_price_between_average_and_cheapest,
       carList: json.search_result.car_list,
+    }));
+  }
+
+  function resetSearchResultStates() {
+    setSearchResult((res) => ({
+      ...res,
+      averagePrice: 0,
+      highestPrice: 0,
+      cheapestPrice: 0,
+      averagePriceBetweenAverageAndCheapest: 0,
+      carList: [],
     }));
   }
 
