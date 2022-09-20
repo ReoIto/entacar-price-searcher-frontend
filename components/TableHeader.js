@@ -13,7 +13,7 @@ export default function TableHeader() {
   return (
     <thead className=" bg-gray-200">
       <tr>
-        {headerColumns?.map((col) => {
+        {headerColumns.map((col) => {
           return (
             <th
               key={col}
