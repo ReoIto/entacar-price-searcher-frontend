@@ -1,66 +1,66 @@
-import { useForm } from "react-hook-form";
-import DateTimeInput from "./DateTimeInput";
-import ErrorMessage from "./ErrorMessage";
+import { useForm } from "react-hook-form"
+import DateTimeInput from "./DateTimeInput"
+import ErrorMessage from "./ErrorMessage"
 
 export default function SearchForm({
   isLoading,
   setIsLoading,
   setSearchResult,
-  setIsNoResult,
+  setIsNoResult
 }) {
   const {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
-  } = useForm();
+    formState: { errors }
+  } = useForm()
 
   async function onSubmit(data) {
     if (!isValidDateInput(data.startDate, data.returnDate)) {
-      return;
+      return
     }
 
-    setIsLoading(true);
-    handleIsNoResult(false);
-    const res = await fetch(`${baseApiUrl()}/search?${setQuery(data)}`);
-    const json = await res.json();
+    setIsLoading(true)
+    handleIsNoResult(false)
+    const res = await fetch(`${baseApiUrl()}//search_prices?${setQuery(data)}`)
+    const json = await res.json()
 
     if (json.search_result.is_no_result === true) {
-      handleIsNoResult(true);
-      resetSearchResultStates();
-      setIsLoading(false);
-      return;
+      handleIsNoResult(true)
+      resetSearchResultStates()
+      setIsLoading(false)
+      return
     }
 
-    handleSearchResultData(json);
-    setIsLoading(false);
+    handleSearchResultData(json)
+    setIsLoading(false)
   }
 
   function baseApiUrl() {
     if (process.env.NODE_ENV === "production") {
-      return process.env.NEXT_PUBLIC_PRODUCTION_API_URL;
+      return process.env.NEXT_PUBLIC_PRODUCTION_API_URL
     }
 
-    return process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL;
+    return process.env.NEXT_PUBLIC_DEVELOPMENT_API_URL
   }
 
   function isValidDateInput(startDate, returnDate) {
-    startDate = new Date(startDate);
-    returnDate = new Date(returnDate);
+    startDate = new Date(startDate)
+    returnDate = new Date(returnDate)
 
     if (startDate < returnDate) {
-      return true;
+      return true
     }
 
     setError("returnDate", {
       type: "returnDateMustFutureError",
-      message: "「返却日時」は「予約開始日時」よりも未来に設定してください",
-    });
-    return false;
+      message: "「返却日時」は「予約開始日時」よりも未来に設定してください"
+    })
+    return false
   }
 
   function handleIsNoResult(bool) {
-    setIsNoResult(bool);
+    setIsNoResult(bool)
   }
 
   function setQuery(data) {
@@ -68,9 +68,9 @@ export default function SearchForm({
       startDate: data.startDate,
       startTime: data.startTime,
       returnDate: data.returnDate,
-      returnTime: data.returnTime,
-    };
-    return new URLSearchParams(params);
+      returnTime: data.returnTime
+    }
+    return new URLSearchParams(params)
   }
 
   function handleSearchResultData(json) {
@@ -82,8 +82,8 @@ export default function SearchForm({
       averagePriceBetweenAverageAndCheapest:
         json.search_result.average_price_between_average_and_cheapest,
       carList: json.search_result.car_list,
-      isServerError: json.search_result.is_error,
-    }));
+      isServerError: json.search_result.is_error
+    }))
   }
 
   function resetSearchResultStates() {
@@ -93,8 +93,8 @@ export default function SearchForm({
       highestPrice: 0,
       cheapestPrice: 0,
       averagePriceBetweenAverageAndCheapest: 0,
-      carList: [],
-    }));
+      carList: []
+    }))
   }
 
   return (
@@ -159,12 +159,11 @@ export default function SearchForm({
             className={`bg-blue-500 text-white font-semibold py-2 px-8 rounded-md focus:outline-none ${
               !isLoading && "hover:bg-blue-600 hover:shadow-lg"
             } ${isLoading && "bg-blue-200"}`}
-            disabled={isLoading}
-          >
+            disabled={isLoading}>
             {isLoading ? "検索中" : "検索する"}
           </button>
         </form>
       </div>
     </>
-  );
+  )
 }

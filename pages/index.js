@@ -18,14 +18,14 @@ export default function Home() {
   const [isNoResult, setIsNoResult] = useState(false);
 
   function renderFlashMessages() {
-    if (searchResult.isServerError === true) {
+    if (searchResult.isServerError) {
       return (
         <FlashMessage
           content="検索処理中に予期せぬエラーが発生しました。時間を空けてから再度操作してください。"
           severityLevel="ERROR"
         />
       );
-    } else if (isNoResult === true) {
+    } else if (isNoResult) {
       return (
         <FlashMessage
           content="指定された検索条件に合致する結果がありませんでした。条件を変更して再度検索してください。"
